@@ -1,3 +1,10 @@
+![Python 3.13.12](https://img.shields.io/badge/python-3.13.12-blue.svg)
+![LangChain](https://img.shields.io/badge/LangChain-1C3C3C.svg?style=for-the-badge&logo=LangChain&logoColor=white)
+![OpenAI](https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white)
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+![Neo4J](https://img.shields.io/badge/Neo4j-008CC1?style=for-the-badge&logo=neo4j&logoColor=white)
+![fastapi](https://img.shields.io/badge/FastAPI-009688.svg?style=for-the-badge&logo=FastAPI&logoColor=white)
+
 # Overview
 
 This repo contains code examples of using LangChain. The material follows and extends from [Build an LLM RAG Chatbot With LangChain](https://realpython.com/build-llm-rag-chatbot-with-langchain/)
@@ -69,7 +76,10 @@ pip instal neo4j
 ```
 # Learnings
 
-- Used `ptpython`, wich with its Emacs like interface made testing on terminal a cinch
+- Good prompt engineering skill is the most critical component to project like this. Being very explicit, assertive ("make sure", "never") and extremely specific takes practice and revisions
+- Just like prompt engineering, building Cypher queries is part art (though I am relying on my llm agent to create queries, it was needed for creating examples queries for it within the prompt template for context i.e. few-shot prompting )
+- `ptpython` with its Emacs like interface makes testing on terminal a cinch
+
 
 # Disclosure and precautions
 

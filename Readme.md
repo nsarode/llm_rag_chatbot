@@ -2,7 +2,7 @@
 
 This repo contains code examples of using LangChain. The material follows and extends from [Build an LLM RAG Chatbot With LangChain](https://realpython.com/build-llm-rag-chatbot-with-langchain/)
 
-The tutorial needs at minimum a basic understanding of the following concepts and technologies,
+The tutorial assumes you have *at minimum* a basic understanding of the following concepts and technologies,
 - Large language models (LLMs) and prompt engineering
 - Text embeddings and vector databases
 - Graph databases and Neo4j
@@ -10,3 +10,67 @@ The tutorial needs at minimum a basic understanding of the following concepts an
 - REST APIs and FastAPI
 - Asynchronous programming
 - Docker and Docker Compose
+
+# Pre-requisites
+
+- API key from [OpenAI](https://platform.openai.com/account/api-keys) or others of your choice
+- Neo4j account (free tier perfectly ok) - with active (running) instance 
+
+
+# Business problem & requirements
+
+You are an AI engineer working for a large hospital system in the US. Your stakeholders would like more visibility into the ever-changing data they collect. They want answers to ad-hoc questions about patients, visits, physicians, hospitals, and insurance payers without having to understand a query language like SQL, request a report from an analyst, or wait for someone to build a dashboard.
+
+To accomplish this, your stakeholders want an internal chatbot tool, similar to ChatGPT, that can answer questions about your company’s data. After meeting to gather requirements, you’re provided with a list of the kinds of questions your chatbot should answer:
+
+- What is the current wait time at XYZ hospital? (Objective answer)
+- Which hospital currently has the shortest wait time? (Objective answer)
+- At which hospitals are patients complaining about billing and insurance issues? (Subjective answer)
+- Have any patients complained about the hospital being unclean? (Subjective answer)
+- What have patients said about how doctors and nurses communicate with them? (Subjective answer)
+- What are patients saying about the nursing staff at XYZ hospital? (Subjective answer)
+- What was the total billing amount charged to Cigna payers in 2023? (Objective answer)
+- How many patients has Dr. John Doe treated? (Objective answer)
+- How many visits are open and what is their average duration in days? (Objective answer)
+- Which physician has the lowest average visit duration in days? (Objective answer)
+- How much was billed for patient 789’s stay? (Objective answer)
+- Which hospital worked with the most Cigna patients in 2023? (Objective answer)
+- What’s the average billing amount for emergency visits by hospital? (Objective answer)
+- Which state had the largest percent increase inedicaid visits from 2022 to 2023? (Objective answer)
+
+Subjective answer - your chatbot will have to read through reviews to get an answer for the question. Since the response could be subjective, there is no additional special ask of it
+
+Objective answer - since the answer to the question is objective, but the questions could be phrased differenty by the user or may need some aggregation operation, your chatbot should *dynamically generate accurate queries* to retrieve an objective answer for the question being asked
+
+# Data
+
+HOSPITALS_CSV_PATH=https://raw.githubusercontent.com/hfhoffman1144/langchain_neo4j_rag_app/main/data/hospitals.csv
+PAYERS_CSV_PATH=https://raw.githubusercontent.com/hfhoffman1144/langchain_neo4j_rag_app/main/data/payers.csv
+PHYSICIANS_CSV_PATH=https://raw.githubusercontent.com/hfhoffman1144/langchain_neo4j_rag_app/main/data/physicians.csv
+PATIENTS_CSV_PATH=https://raw.githubusercontent.com/hfhoffman1144/langchain_neo4j_rag_app/main/data/patients.csv
+VISITS_CSV_PATH=https://raw.githubusercontent.com/hfhoffman1144/langchain_neo4j_rag_app/main/data/visits.csv
+REVIEWS_CSV_PATH=https://raw.githubusercontent.com/hfhoffman1144/langchain_neo4j_rag_app/main/data/reviews.csv
+
+The datasets have all the information needed to answer *most* of the questions, with the exception of 'wait times'. Since that information can't be stored in a static table, the bot will need to make an API call to answer the question. 
+
+# Directory tree
+
+# Setup
+
+- Follow conda env setup instructions from [LangChain Basics](https://github.com/nsarode/langchain_basics/blob/main/Readme.md) for OpenAI (it will be commented out since in that repo I was trying out Google's Gemini - genai)
+- Depending on your system, you may have to install `Docker`, `docker-compose`
+
+```bash
+conda activate llm
+pip install chromadb
+pip install langchain-community
+pip instal neo4j
+
+```
+# Learnings
+
+- Used `ptpython`, wich with its Emacs like interface made testing on terminal a cinch
+
+# Disclosure and precautions
+
+The data is sourced & cleaned from Kaggle. It is synthetic and stupendously clean, to help focus on the aim on the project (create chatbot using langchain, OpenAI & Neo4j), without necessitating in-depth exploratory data analysis (EDA), feature engineering or cleaning of the data. In real life, you are NEVER going to come across a dataset as clean (error-free, standardized, etc.) as this one. See my code from [Physionet 2012](https://github.com/nsarode/physionet_2012) to see an example of data EDA (though to be honest, that dataset is also cleaner than what you will handle in real life. Real datasets are often proprietary and/or paid, so this is the best option I had to add to my public repo)

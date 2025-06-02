@@ -20,7 +20,7 @@ The tutorial assumes you have *at minimum* a basic understanding of the followin
 
 # Pre-requisites
 
-- API key from [OpenAI](https://platform.openai.com/account/api-keys) or others of your choice
+- API key from [OpenAI](https://platform.openai.com/account/api-keys) or others of choice
 - Neo4j account (free tier perfectly ok) - with active (running) instance 
 
 
@@ -45,9 +45,11 @@ To accomplish this, your stakeholders want an internal chatbot tool, similar to 
 - What’s the average billing amount for emergency visits by hospital? (Objective answer)
 - Which state had the largest percent increase inedicaid visits from 2022 to 2023? (Objective answer)
 
-Subjective answer - your chatbot will have to read through reviews to get an answer for the question. Since the response could be subjective, there is no additional special ask of it
+Depending on the query you give it, the agent needs to decide between the Cypher chain, reviews chain, and wait times functions
 
-Objective answer - since the answer to the question is objective, but the questions could be phrased differenty by the user or may need some aggregation operation, your chatbot should *dynamically generate accurate queries* to retrieve an objective answer for the question being asked
+    - Subjective answer - the chatbot will have to read through reviews to get an answer for the question. Since the response could be subjective, there is no additional special ask of it
+
+    - Objective answer - since the answer to the question is objective, but the questions could be phrased differenty by the user or may need some aggregation operation, the chatbot should *dynamically generate accurate queries* to retrieve an objective answer for the question being asked
 
 # Data
 
@@ -65,7 +67,7 @@ The datasets have all the information needed to answer *most* of the questions, 
 # Setup
 
 - Follow conda env setup instructions from [LangChain Basics](https://github.com/nsarode/langchain_basics/blob/main/Readme.md) for OpenAI (it will be commented out since in that repo I was trying out Google's Gemini - genai)
-- Depending on your system, you may have to install `Docker`, `docker-compose`
+- Depending on the system, you may have to install `Docker`, `docker-compose`
 
 ```bash
 conda activate llm
@@ -76,9 +78,13 @@ pip instal neo4j
 ```
 # Learnings
 
-- Good prompt engineering skill is the most critical component to project like this. Being very explicit, assertive ("make sure", "never") and extremely specific takes practice and revisions
-- Just like prompt engineering, building Cypher queries is part art (though I am relying on my llm agent to create queries, it was needed for creating examples queries for it within the prompt template for context i.e. few-shot prompting )
-- `ptpython` with its Emacs like interface makes testing on terminal a cinch
+- Good prompt engineering skill is the most critical component to project like this. Being very explicit (background, expectations), assertive ("make sure", "never") and **extremely** specific with the details (desired outcome, format, style etc) takes practice and continuous revisions
+- Leveraging llm agents to create complex Cypher queries is breathtaking to see, however for the purpose of few-shot prompting, example queries are needed within the prompt template for context. For that a solid understanding of the data model at hand is paramount
+- LangChain agents can also run python code (not just chaining components and/or methods)
+- Leveraging REPL tool like `ptpython` with its Emacs like interface makes testing half-baked code on the terminal a cinch
+- Existing functionalities I didn't know before
+    - `np.argmin` function returns index of minimum value within an input array
+    - `from typing import Any` allows for flexibility in creating a thowaway variable that can be used by the llm agent
 
 
 # Disclosure and precautions

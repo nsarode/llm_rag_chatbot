@@ -22,7 +22,7 @@ services:
         - .env
       depends_on:
         - chatbot_api
-      # ports:
-      #   - "8501:8501"
-      # extra_hosts:
-      #   - "host.docker.internal:host-gateway"
+      ports:
+        - "8501:8501"
+      extra_hosts:
+        - "host.docker.internal:host-gateway"

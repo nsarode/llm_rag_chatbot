@@ -78,6 +78,7 @@ pip instal neo4j
 ```
 # Learnings
 
+- Retrieval augmented generation (RAG) agent combines strengths of RAG with AI agents to allows agents to intelligently explore and utilize a knowledge base for more accurate and adaptable responses 
 - Good prompt engineering skill is the most critical component to project like this. Being very explicit (background, expectations), assertive ("make sure", "never") and **extremely** specific with the details (desired outcome, format, style etc) takes practice and continuous revisions
 - Leveraging llm agents to create complex Cypher queries is breathtaking to see, however for the purpose of few-shot prompting, example queries are needed within the prompt template for context. For that a solid understanding of the data model at hand is paramount
 - LangChain agents can also run python code (not just chaining components and/or methods)
@@ -85,6 +86,7 @@ pip instal neo4j
 - Existing functionalities I didn't know before
     - `np.argmin` function returns index of minimum value within an input array
     - `from typing import Any` allows for flexibility in creating a thowaway variable that can be used by the llm agent
+- Asynchronous serving capability of FastAPI helps dealing with the latency involved in waiting for agent to respond. Essentially, instead of waiting for OpenAI to respond to each of the agent’s requests, we can have our agent make multiple requests in a row and store the responses as they’re received. Deploying the agent asynchronously allows us to scale to a high-request volume without having to increase infrastructure demands
 
 
 # Disclosure and precautions

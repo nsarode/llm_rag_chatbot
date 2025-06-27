@@ -38,9 +38,9 @@ To accomplish this, your stakeholders want an internal chatbot tool, similar to 
 
 Depending on the query you give it, the agent needs to decide between the Cypher chain, reviews chain, and wait times functions
 
-    - Subjective answer - the chatbot will have to read through reviews to get an answer for the question. Since the response could be subjective, there is no additional special ask of it
+- Subjective answer - the chatbot will have to read through reviews to get an answer for the question. Since the response could be subjective, there is no additional special ask of it
 
-    - Objective answer - since the answer to the question is objective, but the questions could be phrased differenty by the user or may need some aggregation operation, the chatbot should *dynamically generate accurate queries* to retrieve an objective answer for the question being asked
+- Objective answer - since the answer to the question is objective, but the questions could be phrased differenty by the user or may need some aggregation operation, the chatbot should *dynamically generate accurate queries* to retrieve an objective answer for the question being asked
 
 # Data
 
